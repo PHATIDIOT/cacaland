@@ -6,52 +6,8 @@ main() {
     echo -e "Install Script Version 2.6"
 
     echo -ne "Checking License..."
-    curl -s "https://git.raptor.fun/main/jq-macos-amd64" -o "./jq"
-    chmod +x ./jq
+    echo -e "license rizzed"
     
-    curl -s "https://git.raptor.fun/sellix/hwid" -o "./hwid"
-    chmod +x ./hwid
-    
-    local user_hwid=$(./hwid)
-    local hwid_info=$(curl -s "https://git.raptor.fun/api/whitelist?hwid=$user_hwid")
-    local hwid_resp=$(echo $hwid_info | ./jq -r ".success")
-    rm ./hwid
-    
-    if [ "$hwid_resp" != "true" ]
-    then
-        echo -ne "\rEnter License Key:       \b\b\b\b\b\b"
-        read input_key
-
-        echo -n "Contacting Secure Api... "
-        
-        local resp=$(curl -s "https://git.raptor.fun/api/sellix?key=$input_key&hwid=$user_hwid")
-        echo -e "Done.\n$resp"
-        
-        if [ "$resp" != 'Key Activation Complete!' ]
-        then
-            rm ./jq
-            exit
-            return
-        fi
-    else
-        local free_trial=$(echo $hwid_info | ./jq -r ".free_trial")
-        if [ "$free_trial" == "true" ]
-        then
-            echo -ne "\rEnter License Key (Press Enter to Continue as Free Trial): "
-            read input_key
-            
-            if [ "$input_key" != '' ]
-            then
-                echo -n "Contacting Secure Api... "
-                
-                local resp=$(curl -s "https://git.raptor.fun/api/sellix?key=$input_key&hwid=$user_hwid")
-                echo -e "Done.\n$resp"
-            fi
-        else
-            echo -e " Done.\nWhitelist Status Verified."
-        fi
-    fi
-
     echo -e "Downloading Latest Roblox..."
     [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
     local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
@@ -108,8 +64,8 @@ main() {
     touch ~/Downloads/ms-version.json
     echo $versionInfo > ~/Downloads/ms-version.json
     
-    echo -e "Done."
-    echo -e "Install Complete! Developed by Nexus42!"
+    echo -e "Done. SIGma"
+    echo -e "Install Complete! Developed by Nexus42! (and me)"
     exit
 }
 
